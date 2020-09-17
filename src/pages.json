@@ -1,16 +1,91 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		{
-			"path": "pages/index/index",
+		
+        {
+			"path": "pages/home/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "首页"
+			}
+        },
+        {
+			"path": "pages/album/index",
+			"style": {
+				"navigationBarTitleText": "专辑详情"
+			}
+        },
+        {
+			"path": "pages/imgDetail/index",
+			"style": {
+				"navigationBarTitleText": "图片详情"
+			}
+        },
+        {
+			"path": "pages/horizontal/index",
+			"style": {
+				"navigationBarTitleText": "横屏"
+			}
+        },
+        {
+			"path": "pages/video/index",
+			"style": {
+				"navigationBarTitleText": "精美视频"
+			}
+        },
+        {
+			"path": "pages/search/index",
+			"style": {
+				"navigationBarTitleText": "搜索"
+			}
+        },
+        {
+			"path": "pages/mine/index",
+			"style": {
+				"navigationBarTitleText": "我的"
 			}
 		}
 	],
 	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
-	}
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "美图小程序",
+		"navigationBarBackgroundColor": "#000"
+    },
+    "tabBar": {
+        "color": "#8a8a8a",
+        "selectedColor": "#d4237a",
+        "backgroundColor": "#fff",
+        "position": "bottom",
+        "borderStyle": "black",
+        "list": [
+            {
+                "pagePath": "pages/home/index",
+                "text":"首页",
+                "iconPath":"./static/icon/1.jpg",
+                "selectedIconPath":"./static/icon/11.jpg"
+            },
+            {
+                "pagePath": "pages/horizontal/index",
+                "text":"横屏",
+                "iconPath":"./static/icon/2.jpg",
+                "selectedIconPath":"./static/icon/22.jpg"
+            },
+            {
+                "pagePath": "pages/video/index",
+                "text":"精美视频",
+                "iconPath":"./static/icon/3.jpg",
+                "selectedIconPath":"./static/icon/33.jpg"
+            },
+            {
+                "pagePath": "pages/search/index",
+                "text":"搜索",
+                "iconPath":"./static/icon/4.jpg",
+                "selectedIconPath":"./static/icon/44.jpg"
+            },
+            {
+                "pagePath": "pages/mine/index",
+                "text":"我的",
+                "iconPath":"./static/icon/5.jpg",
+                "selectedIconPath":"./static/icon/55.jpg"
+            }
+        ]
+    }
 }

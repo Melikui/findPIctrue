@@ -7,14 +7,14 @@
             </view>
             <view class="user_desc">
                 <view class="user_name">{{ imgDetail.user.name }}</view>
-                <view class="user_time">{{ imgDetail.cnTime }}</view>
+                <view class="user_time">{{ imgDetail.atime }}</view>
             </view>
         </view>
         <!-- 用户信息 结束 -->
 
         <!-- 高清大图 开始 -->
         <view class="high_img">
-            <img mode="widthFix" :src="imgDetail.newThumb" />
+            <img mode="widthFix" :src="imgDetail.thumb" />
         </view>
         <!-- 高清大图 结束 -->
 
@@ -30,7 +30,7 @@
         <!-- 点赞 结束 -->
 
         <!-- 专辑 开始 -->
-        <view class="album_wrap">
+        <view class="album_wrap"  v-if="album.length">
             <!-- 标题 -->
             <view class="album_title">相关</view>
             <!-- 内容 -->
@@ -50,6 +50,46 @@
             </view>
         </view>
         <!-- 专辑 结束 -->
+
+        <!-- 最热评论 comment hot -->
+        <view class="comment hot" v-if="hot.length">
+            <view class="comment_title">
+                <text class="iconfont icon-hot2"></text>
+                <text class="comment_text">最热评论</text>
+            </view>
+            <view class="comment_list">
+                <view class="comment_item"
+                v-for="item in hot"
+                :key="item.id"
+                >
+                <!-- 用户信息 -->
+                <view class="comment_user">
+                    <!-- 用户头像 -->
+                    <view class="user_icon"><img mode='widthFix' :src="item.user.avatar" ></view>
+                    <!-- 用户昵称 -->
+                    <view class="user_name">
+                        <view class="user_nickname">{{item.user.name}}</view>
+                        <view class="user_time">{{item.cnTime}}</view>
+                    </view>
+                    <!-- 用户徽章 -->
+                    <view class="user_badge">
+                        <img 
+                        v-for="item2 in item.user.title"
+                        :key="item2.icon"
+                        :src="item2.icon" 
+                        >
+                    </view>
+                </view>
+                <!-- 评论数据 -->
+                <view class="comment_desc">
+                    <view class="comment_content">{{item.content}}</view>
+                    <view class="comment_like">
+                        <text class="iconfont icon-dianzan">item.size</text>
+                    </view>
+                </view>
+                </view>
+            </view>
+        </view>
 
     </view>
 </template>
@@ -72,9 +112,6 @@ export default {
         // console.log(getApp().globalData);
         const { imgList, imgIndex } = getApp().globalData;
         this.imgDetail = imgList[imgIndex];
-        this.imgDetail.newThumb =
-            this.imgDetail.thumb +
-            this.imgDetail.rule.replace("$<Height>", 360);
 
         // xxx 年前的数据
         this.imgDetail.cnTime = moment(this.imgDetail.atime*1000).fromNow();
@@ -89,6 +126,7 @@ export default {
             }).then(result=>{
                 // console.log(result);
                 this.album = result.data.res.album;
+                // result.res.hot.forEach(v=>v.cnTime=moment(v.atime*1000).formNow());
                 this.hot = result.data.res.hot;
                 this.comment = result.data.res.comment;
             })
@@ -191,5 +229,78 @@ export default {
       }
     }
   }
+}
+// 最热评论
+.comment {
+  .comment_title {
+      padding: 15rpx;
+    .iconfont {
+        color:red;
+        font-size: 40rpx;
+    }
+
+    .comment_text {
+        font-weight: 600;
+        font-size: 28rpx;
+        color: #666;
+        margin-left: 10rpx;
+    }
+  }
+
+  .comment_list {
+  .comment_item {
+      border-bottom: 15rpx solid #eee;
+    .comment_user {
+        display: flex;
+        padding: 20rpx 0;
+      .user_icon {
+          width: 15%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        image {
+            width: 90%;
+        }
+      }
+      .user_name {
+          flex: 1;
+        .user_nickname {
+            color: #777;
+        }
+
+        .user_time {
+            color: #ccc;
+            font-size: 24rpx;
+            padding: 5px;
+        }
+      }
+
+      .user_badge {
+        image {
+            width: 40rpx;
+            height: 40rpx;
+        }
+      }
+    }
+
+    .comment_desc {
+        display: flex;
+        padding: 30rpx 0;
+      .comment_content {
+          flex: 1;
+          padding-left: 15%;
+          color: #000;
+
+      }
+
+      .comment_like {
+          text-align: right;
+        .iconfont {
+
+        }
+      }
+    }
+  }
+}
 }
 </style>
